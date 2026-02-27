@@ -1,162 +1,953 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Organograma DP - NSA Contabilidade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #232a3f 0%, #1a1f2e 100%);
+            min-height: 100vh;
+            padding: 20px 10px;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <link href="styles.css" rel="stylesheet">
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-        <title>João Vitor N. Brandão</title>
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(157, 132, 85, 0.3);
+        }
 
-    </head>
-    <body>
+        .logo {
+            width: 140px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
 
-        <!-- Navbar in screens on lg or bigger -->
-        <header class="header-margin">
-          <nav class="d-none d-lg-block navbar navbar-expand-lg bg-transparent sticky-top" aria-label="Main navigation">
-            <div class="container-fluid d-flex align-items-center" role="navigation">
-              <div class="d-flex justify-content-start ms-4 pe-4">
-                <a class="navbar-brand" href="index.html">João Vitor N. Brandão</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="news.html">News</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="programming.html">Programming</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="personal_life.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Personal Life
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Running</a></li>
-                      <li><a class="dropdown-item" href="#">Music</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="d-flex justify-content-end collapse navbar-collapse me-4 pe-4" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-lg-0">
-                  <li class="nav-item"><a href="index_pt.html" class="nav-link"><img src="images/brasil.svg" class="flag"></a></li>
-                  <li class="nav-item"><a href="index.html" class="nav-link"><img src="images/usa.svg" class="flag"></a></li>
-                </ul>
-              </div>
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #9d8455;
+            text-shadow: 2px 2px 0px #232a3f;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(145deg, #2a3450 0%, #232a3f 100%);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9d8455, #b89b6a);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .card:hover, .card:active {
+            transform: translateY(-5px);
+            border-color: #9d8455;
+            box-shadow: 0 8px 25px rgba(157, 132, 85, 0.3);
+        }
+
+        .card:hover::before, .card:active::before {
+            transform: scaleX(1);
+        }
+
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            color: #9d8455;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .card-name {
+            font-size: 0.95rem;
+            color: #fff;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .card-role {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 3px;
+        }
+
+        /* Cards especiais */
+        .card.coord {
+            background: linear-gradient(145deg, #9d8455 0%, #7a6a42 100%);
+            padding: 20px 25px;
+        }
+
+        .card.coord .card-title {
+            color: #232a3f;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+        }
+
+        .card.coord .card-name {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .card.supervisor {
+            background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%);
+            border: 2px solid #9d8455;
+            padding: 18px;
+        }
+
+        .card.supervisor .card-title {
+            color: #fff;
+            text-shadow: 1px 1px 0px #9d8455;
+        }
+
+        .card.leader {
+            background: linear-gradient(145deg, #2e3854 0%, #252d44 100%);
+            border: 1px solid rgba(157, 132, 85, 0.5);
+        }
+
+        /* Estrutura do Organograma */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Nível 1 - Coordenador */
+        .level-1 {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Nível 2 - Supervisores */
+        .level-2 {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Conector vertical */
+        .connector-v {
+            width: 2px;
+            height: 25px;
+            background: linear-gradient(to bottom, #9d8455, rgba(157, 132, 85, 0.3));
+        }
+
+        /* Conector horizontal */
+        .connector-h {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #9d8455, transparent);
+            width: 90%;
+            max-width: 1000px;
+            margin: 10px 0;
+        }
+
+        /* Seções de Supervisor */
+        .supervisor-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .supervisor-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(157, 132, 85, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .supervisor-header {
+            display: flex;
+            justify-content: center;
+        }
+
+        .teams-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .team-group {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 12px;
+            border-left: 3px solid #9d8455;
+        }
+
+        .team-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            color: #9d8455;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .member-card {
+            background: linear-gradient(145deg, #232a3f 0%, #1e2538 100%);
+            border-radius: 8px;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid rgba(157, 132, 85, 0.3);
+            flex: 1;
+            min-width: 100px;
+            max-width: 150px;
+        }
+
+        .member-name {
+            font-size: 0.8rem;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .member-role {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #2a3450 0%, #232a3f 100%);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid #9d8455;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(157, 132, 85, 0.2);
+            border: 2px solid #9d8455;
+            color: #9d8455;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #9d8455;
+            color: #232a3f;
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(157, 132, 85, 0.3);
+            padding-right: 40px;
+        }
+
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #9d8455;
+            text-shadow: 2px 2px 0px #232a3f;
+            line-height: 1.2;
+        }
+
+        .modal-name {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .modal-list {
+            list-style: none;
+        }
+
+        .modal-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-list li:last-child {
+            border-bottom: none;
+        }
+
+        .modal-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #9d8455;
+            font-size: 1rem;
+        }
+
+        /* Indicador de click */
+        .click-indicator {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 18px;
+            height: 18px;
+            background: #9d8455;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: #232a3f;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: bold;
+        }
+
+        .card:hover .click-indicator,
+        .card:active .click-indicator {
+            opacity: 1;
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .supervisor-block {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .logo {
+                width: 100px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .level-2 {
+                gap: 10px;
+            }
+
+            .card.supervisor {
+                padding: 12px;
+                min-width: 140px;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .card-name {
+                font-size: 0.85rem;
+            }
+
+            .supervisor-sections {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .supervisor-block {
+                padding: 15px;
+            }
+
+            .team-members {
+                gap: 6px;
+            }
+
+            .member-card {
+                min-width: 90px;
+                padding: 6px 8px;
+            }
+
+            .member-name {
+                font-size: 0.75rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+                max-height: 85vh;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-list li {
+                font-size: 0.9rem;
+                padding-left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .level-2 {
+                gap: 8px;
+            }
+
+            .card.supervisor {
+                min-width: 120px;
+                padding: 10px;
+            }
+
+            .card.coord {
+                padding: 15px 20px;
+            }
+
+            .team-group {
+                padding: 10px;
+            }
+
+            .member-card {
+                min-width: 80px;
+                flex: 1 1 calc(50% - 6px);
+            }
+        }
+
+        /* Scrollbar estilizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1f2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #9d8455;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b89b6a;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="LOGO_NSA.png" alt="NSA Contabilidade" class="logo">
+            <h1>ORGANOGRAMA DP 2026</h1>
+            <p class="subtitle">Departamento Pessoal - Estrutura Organizacional</p>
+        </div>
+
+        <!-- Organograma -->
+        <div class="org-chart">
+
+            <!-- Nível 1: Coordenador -->
+            <div class="level-1">
+                <div class="card coord" onclick="openModal('edimar')">
+                    <div class="card-title">COORDENADOR</div>
+                    <div class="card-name">Edimar</div>
+                    <div class="click-indicator">+</div>
+                </div>
             </div>
-          </nav>
-        </header>
 
-        <!-- Header on screens smaller than lg -->
-        <header class="header-margin">
-          <nav class="d-lg-none navbar bg-transparent sticky-top" aria-label="Main navigation">
-            <div class="container-fluid d-flex justify-content-center align-items-center" role="navigation">
-              <div class="m-auto p-auto">
-                <a class="navbar-brand" href="index.html">João Vitor N. Brandão</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              </div>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="news.html">News</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="programming.html">Programming</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="personal_life.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Personal Life
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Running</a></li>
-                      <li><a class="dropdown-item" href="#">Music</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-lg-0">
-                  <li class="nav-item"><a href="index_pt.html" class="nav-link"><img src="images/brasil.svg" class="flag"></a></li>
-                  <li class="nav-item"><a href="index.html" class="nav-link"><img src="images/usa.svg" class="flag"></a></li>
-                </ul>
-              </div>
-          </nav>
-        </header>
+            <div class="connector-v"></div>
 
-        <!-- Main text of the page on lg screen or bigger -->
-        <main>
-          <div class="d-none d-lg-block container text-center mx-auto my-auto px-auto py-auto">
-            <div class="row justify-content-md-center">
-              <div class="col col-lg-2 align-self-center">
-                  <img src="images/profile_picture.jpg" id="profile" class=" img-fluid rounded-circle mx-auto d-block" alt="Picture of João Vitor">
-              </div>
-              <div class="col-6 m-4 p-4">
-                  <p>João Vitor Neves Brandão got his B.Sc. in Physics from <a href="https://ufv.br/">Universidade Federal de Viçosa</a> in 2021. In the graduation worked with experimental condensed-matter physics, specifically, studied TbCo thin films produced with electrodeposition, making eletrical and magnetic caracterization, with interest in spintronic applications. This research occurred during 2016-18, with a scholarship from CNPq. During 2018-19, performed a theoretical revision on superconductors, also with CNPq funding.</p>
-              </div>
+            <!-- Nível 2: Supervisores -->
+            <div class="level-2">
+                <div class="card supervisor" onclick="openModal('daiany')">
+                    <div class="card-title">SUPERVISORA</div>
+                    <div class="card-name">Daiany</div>
+                    <div class="card-role">Suporte Questor</div>
+                    <div class="click-indicator">+</div>
+                </div>
+
+                <div class="card supervisor" onclick="openModal('beatriz')">
+                    <div class="card-title">SUPERVISORA</div>
+                    <div class="card-name">Beatriz</div>
+                    <div class="card-role">DP Operacional</div>
+                    <div class="click-indicator">+</div>
+                </div>
+
+                <div class="card supervisor" onclick="openModal('diego')">
+                    <div class="card-title">SUPERVISOR</div>
+                    <div class="card-name">Diego</div>
+                    <div class="card-role">DP Operacional</div>
+                    <div class="click-indicator">+</div>
+                </div>
+
+                <div class="card supervisor" onclick="openModal('aline')">
+                    <div class="card-title">SUPERVISORA</div>
+                    <div class="card-name">Aline</div>
+                    <div class="card-role">DP Operacional</div>
+                    <div class="click-indicator">+</div>
+                </div>
+
+                <div class="card supervisor" onclick="openModal('elisabete')">
+                    <div class="card-title">SUPERVISORA</div>
+                    <div class="card-name">Elisabete</div>
+                    <div class="card-role">DP Operacional</div>
+                    <div class="click-indicator">+</div>
+                </div>
+
+                <div class="card supervisor" onclick="openModal('rasec')">
+                    <div class="card-title">SUPERVISOR</div>
+                    <div class="card-name">Rasec</div>
+                    <div class="card-role">DP Operacional</div>
+                    <div class="click-indicator">+</div>
+                </div>
             </div>
 
-            <div id="negative" class="row justify-content-md-center mx-auto px-auto mb-4">
-              <div class="col-8">
-                <p>Participated as coordinator of the 17/18 and 18/19 administrations of the <a href="https://www.instagram.com/cafis.ufv/">Centro Acadêmico de Física</a>, during the administrations organized two academic weeks.</p>
-                <p>Nowadays, João is working as a extension technician in the <a href="https://www.instagram.com/fermicro.ufv/">FERMICRO</a> laboratory, as part of the extension project <a href="https://www.instagram.com/fermentamovel/">Fermenta Móvel.</a></p>
-              </div>
+            <div class="connector-h"></div>
+
+            <!-- Seções por Supervisor -->
+            <div class="supervisor-sections">
+
+                <!-- Daiany - Suporte Questor (SEPARADO) -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE DAIANY</div>
+                            <div class="card-name">Suporte Questor</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-members">
+                                <div class="member-card">
+                                    <div class="member-name">Daiany</div>
+                                    <div class="member-role">Suporte Questor</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-name">Mayumi</div>
+                                    <div class="member-role">Suporte Questor</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-name">Estagiário</div>
+                                    <div class="member-role">Contratar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beatriz - DP07 e DP014 -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE BEATRIZ</div>
+                            <div class="card-name">DP Operacional</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-name">DP07 - CLÍNICAS</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Taise</div></div>
+                                <div class="member-card"><div class="member-name">Julia</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">DP014 - POSTOS</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Tainara</div><div class="member-role">AP</div></div>
+                                <div class="member-card"><div class="member-name">Julia</div><div class="member-role">AP</div></div>
+                                <div class="member-card"><div class="member-name">Amanda</div><div class="member-role">OLÁ & Demais</div></div>
+                                <div class="member-card"><div class="member-name">Gabriel</div><div class="member-role">OLÁ - Provável saída</div></div>
+                                <div class="member-card"><div class="member-name">Aninha</div><div class="member-role">Estagiária PDI</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diego - DP08 e DP17 -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE DIEGO</div>
+                            <div class="card-name">DP Operacional</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-name">DP08 - DIVERSOS</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Milena</div></div>
+                                <div class="member-card"><div class="member-name">Rayssa</div></div>
+                                <div class="member-card"><div class="member-name">Camila</div><div class="member-role">Provável saída</div></div>
+                                <div class="member-card"><div class="member-name">Daiane</div></div>
+                                <div class="member-card"><div class="member-name">Amanda</div><div class="member-role">Provável saída</div></div>
+                                <div class="member-card"><div class="member-name">Assist</div><div class="member-role">Subst. Mayumi</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">DP17 - RESENDE</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Raiane</div></div>
+                                <div class="member-card"><div class="member-name">Assist</div><div class="member-role">Subst. Diego</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aline - DP01 + Suporte Questor (SEPARADO) -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE ALINE</div>
+                            <div class="card-name">DP + Suporte</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-name">DP01 - INSIDE HS</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Tiago</div></div>
+                                <div class="member-card"><div class="member-name">Raquel</div><div class="member-role">Estagiária</div></div>
+                                <div class="member-card"><div class="member-name">Assist</div><div class="member-role">Subst. Angélica</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">SUPORTE QUESTOR</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Samira</div></div>
+                                <div class="member-card"><div class="member-name">Cintia</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elisabete - DP04 e DP03 -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE ELISABETE</div>
+                            <div class="card-name">DP Operacional</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-name">DP04 - HOTÉIS & BARES</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Priscila Almeida</div></div>
+                                <div class="member-card"><div class="member-name">Estela</div></div>
+                                <div class="member-card"><div class="member-name">Isabela</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">DP03 - MERCADO</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Marcella</div></div>
+                                <div class="member-card"><div class="member-name">Natalia</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rasec - DP06, DP05, DP02, DP10 -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE RASEC</div>
+                            <div class="card-name">DP Operacional</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-name">DP06 - INSIDE POVÃO</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Daniel</div></div>
+                                <div class="member-card"><div class="member-name">Vanessa</div></div>
+                                <div class="member-card"><div class="member-name">Estagiário</div><div class="member-role">Contratar</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">DP05 - DIVERSOS</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Joice Ambrosio</div></div>
+                                <div class="member-card"><div class="member-name">Walace</div></div>
+                                <div class="member-card"><div class="member-name">Leidiane</div><div class="member-role">Estagiária PDI</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">DP02 - COMÉRCIO</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Joice Barcelos</div></div>
+                                <div class="member-card"><div class="member-name">Isabela</div></div>
+                                <div class="member-card"><div class="member-name">Angélica Raposo</div></div>
+                            </div>
+                        </div>
+                        <div class="team-group">
+                            <div class="team-name">DP10 - DIVERSOS</div>
+                            <div class="team-members">
+                                <div class="member-card"><div class="member-name">Nilmara</div></div>
+                                <div class="member-card"><div class="member-name">Maiara</div><div class="member-role">Provável saída</div></div>
+                                <div class="member-card"><div class="member-name">Hugo</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-        </main>
 
-        <!-- Main text of the page on screens smaller than lg -->
-        <main>
-          <div class="d-lg-none container text-center mx-auto my-auto px-auto py-auto">
-            <div class="row justify-content-md-center my-4">
-              <div class="col align-self-center">
-                <img src="images/profile_picture.jpg" id="profile" class=" img-fluid rounded-circle mx-auto d-block" alt="Picture of João Vitor">
-              </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">TÍTULO</div>
+                <div class="modal-name" id="modal-name">Nome</div>
             </div>
-            <div class="row justify-content-md-center my-4">
-              <div class="col align-self-center">
-                <p>João Vitor Neves Brandão got his B.Sc. in Physics from <a href="https://ufv.br/">Universidade Federal de Viçosa</a> in 2021. In the graduation worked with experimental condensed-matter physics, specifically, studied TbCo thin films produced with electrodeposition, making eletrical and magnetic caracterization, with interest in spintronic applications. This research occurred during 2016-18, with a scholarship from CNPq. During 2018-19, performed a theoretical revision on superconductors, also with CNPq funding.</p>
-                <p>Participated as coordinator of the 17/18 and 18/19 administrations of the <a href="https://www.instagram.com/cafis.ufv/">Centro Acadêmico de Física</a>, during the administrations organized two academic weeks.</p>
-                <p>Nowadays, João is working as a extension technician in the <a href="https://www.instagram.com/fermicro.ufv/">FERMICRO</a> laboratory, as part of the extension project <a href="https://www.instagram.com/fermentamovel/">Fermenta Móvel.</a></p>
-              </div>
-            </div>
-          </div>
-        </main>
+            <ul class="modal-list" id="modal-list"></ul>
+        </div>
+    </div>
 
-        <!-- Footer of the page -->
-        <footer>
-          <div class="container text-center">
-            <div class="row justify-content-md-center">
-              <ul class="list-inline">
-                <li class="list-inline-item text-muted"><a href="https://twitter.com/JoaoLJ81"><img src="images/twitter.svg"></a></li>
-                <li class="list-inline-item text-muted"><a href="https://github.com/JoaoLJ81"><img src="images/github.svg"></a></li>
-                <li class="list-inline-item text-muted"><a href="http://lattes.cnpq.br/5144723806682925"><img src="images/lattes.svg"></a></li>
-                <li class="list-inline-item text-muted"><a href="http://linkedin.com/in/joao-vitor-neves-brandao-313176255"><img src="images/linkedin.svg"></a></li>
-              </ul>
+    <script>
+        const descriptions = {
+            daiany: {
+                title: "SUPERVISORA DE SUPORTE",
+                name: "Daiany",
+                items: [
+                    "Onboarding de clientes",
+                    "Parametrização de folhas de pagamento no Questor",
+                    "Criação e validação dos cálculos inerentes de cada cliente",
+                    "Testes de cálculos e processos de cada cliente",
+                    "Reunião de passagem, com todos os detalhes, do novo cliente para a equipe de operação",
+                    "Visitação e acompanhamento buscando soluções de otimização dos processos de folha de pagamento, junto aos clientes e à plataforma Questor",
+                    "Revisitar os clientes antigos já implementados com o mesmo objetivo de padronização, otimização e garantia de qualidade",
+                    "Acompanhamento e desenvolvimento de todo o seu time",
+                    "Reuniões mensais de feedback com seus liderados",
+                    "Reuniões mensais de liderança junto à direção da empresa"
+                ]
+            },
+            beatriz: {
+                title: "SUPERVISORA DE DP",
+                name: "Beatriz",
+                items: [
+                    "Garantir a entrega de todas as rotinas inerentes ao DP",
+                    "Treinamento e desenvolvimento de seus liderados",
+                    "Busca de melhoria contínua em seus processos",
+                    "Reuniões mensais de feedback com seus liderados",
+                    "Reuniões mensais de liderança junto à direção da empresa"
+                ]
+            },
+            diego: {
+                title: "SUPERVISOR DE DP",
+                name: "Diego",
+                items: [
+                    "Garantir a entrega de todas as rotinas inerentes ao DP",
+                    "Treinamento e desenvolvimento de seus liderados",
+                    "Busca de melhoria contínua em seus processos",
+                    "Reuniões mensais de feedback com seus liderados",
+                    "Reuniões mensais de liderança junto à direção da empresa"
+                ]
+            },
+            aline: {
+                title: "SUPERVISORA DE DP",
+                name: "Aline",
+                items: [
+                    "Garantir a entrega de todas as rotinas inerentes ao DP",
+                    "Treinamento e desenvolvimento de seus liderados",
+                    "Busca de melhoria contínua em seus processos",
+                    "Reuniões mensais de feedback com seus liderados",
+                    "Reuniões mensais de liderança junto à direção da empresa"
+                ]
+            },
+            elisabete: {
+                title: "SUPERVISORA DE DP",
+                name: "Elisabete",
+                items: [
+                    "Garantir a entrega de todas as rotinas inerentes ao DP",
+                    "Treinamento e desenvolvimento de seus liderados",
+                    "Busca de melhoria contínua em seus processos",
+                    "Reuniões mensais de feedback com seus liderados",
+                    "Reuniões mensais de liderança junto à direção da empresa"
+                ]
+            },
+            rasec: {
+                title: "SUPERVISOR DE DP",
+                name: "Rasec",
+                items: [
+                    "Garantir a entrega de todas as rotinas inerentes ao DP",
+                    "Treinamento e desenvolvimento de seus liderados",
+                    "Busca de melhoria contínua em seus processos",
+                    "Reuniões mensais de feedback com seus liderados",
+                    "Reuniões mensais de liderança junto à direção da empresa"
+                ]
+            },
+            edimar: {
+                title: "COORDENADOR",
+                name: "Edimar",
+                items: [
+                    "Coordenação geral do Departamento Pessoal",
+                    "Gestão estratégica das equipes",
+                    "Acompanhamento de resultados e indicadores",
+                    "Integração entre as diferentes áreas de DP",
+                    "Desenvolvimento de lideranças"
+                ]
+            }
+        };
 
-            </div>
+        function openModal(person) {
+            const modal = document.getElementById('modal');
+            const data = descriptions[person];
 
-            <div class="row justify-content-center align-self-center">
-              <p class="text-muted text-center">jv.brand@gmail.com</p>
-            </div>
-          </div>
-        </footer>
+            if (data) {
+                document.getElementById('modal-title').textContent = data.title;
+                document.getElementById('modal-name').textContent = data.name;
 
+                const list = document.getElementById('modal-list');
+                list.innerHTML = '';
 
+                data.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    list.appendChild(li);
+                });
 
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    </body>
+        function closeModal(event) {
+            if (!event || event.target.id === 'modal' || event.target.classList.contains('modal-close')) {
+                const modal = document.getElementById('modal');
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Prevenir zoom em double tap em mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
 </html>
