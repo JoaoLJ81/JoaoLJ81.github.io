@@ -32,7 +32,7 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(157, 132, 85, 0.3);
@@ -152,6 +152,26 @@
             border: 1px solid rgba(157, 132, 85, 0.5);
         }
 
+        /* Cards clicáveis vs não clicáveis */
+        .card.clickable {
+            cursor: pointer;
+        }
+
+        .card.not-clickable {
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        .card.not-clickable:hover {
+            transform: none;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .card.not-clickable:hover::before {
+            transform: scaleX(0);
+        }
+
         /* Estrutura do Organograma */
         .org-chart {
             display: flex;
@@ -196,7 +216,7 @@
         /* Seções de Supervisor */
         .supervisor-sections {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             width: 100%;
             margin-top: 10px;
@@ -255,6 +275,25 @@
             flex: 1;
             min-width: 100px;
             max-width: 150px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .member-card:hover {
+            border-color: #9d8455;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(157, 132, 85, 0.2);
+        }
+
+        .member-card.not-clickable {
+            cursor: default;
+        }
+
+        .member-card.not-clickable:hover {
+            transform: none;
+            border-color: rgba(157, 132, 85, 0.3);
+            box-shadow: none;
         }
 
         .member-name {
@@ -296,7 +335,7 @@
             background: linear-gradient(145deg, #2a3450 0%, #232a3f 100%);
             border-radius: 20px;
             padding: 25px;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             border: 2px solid #9d8455;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -401,9 +440,72 @@
             font-weight: bold;
         }
 
-        .card:hover .click-indicator,
-        .card:active .click-indicator {
+        .card.clickable:hover .click-indicator,
+        .card.clickable:active .click-indicator {
             opacity: 1;
+        }
+
+        .member-card.clickable .click-indicator {
+            width: 14px;
+            height: 14px;
+            font-size: 0.55rem;
+            bottom: 4px;
+            right: 4px;
+        }
+
+        .member-card.clickable:hover .click-indicator {
+            opacity: 1;
+        }
+
+        /* Seção de Estatísticas */
+        .stats-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(157, 132, 85, 0.3);
+        }
+
+        .stats-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #9d8455;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 0px #232a3f;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #2a3450 0%, #232a3f 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid rgba(157, 132, 85, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #9d8455;
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #9d8455;
+            text-shadow: 1px 1px 0px #232a3f;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
         }
 
         /* Animações */
@@ -418,7 +520,7 @@
             }
         }
 
-        .card, .supervisor-block {
+        .card, .supervisor-block, .stat-card {
             animation: fadeInUp 0.5s ease forwards;
         }
 
@@ -492,6 +594,14 @@
                 font-size: 0.9rem;
                 padding-left: 20px;
             }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -519,6 +629,19 @@
             .member-card {
                 min-width: 80px;
                 flex: 1 1 calc(50% - 6px);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stats-title {
+                font-size: 1.5rem;
             }
         }
 
@@ -556,7 +679,7 @@
 
             <!-- Nível 1: Coordenador -->
             <div class="level-1">
-                <div class="card coord" onclick="openModal('edimar')">
+                <div class="card coord clickable" onclick="openModal('edimar')">
                     <div class="card-title">COORDENADOR</div>
                     <div class="card-name">Edimar</div>
                     <div class="click-indicator">+</div>
@@ -567,42 +690,42 @@
 
             <!-- Nível 2: Supervisores -->
             <div class="level-2">
-                <div class="card supervisor" onclick="openModal('daiany')">
+                <div class="card supervisor clickable" onclick="openModal('daiany')">
                     <div class="card-title">SUPERVISORA</div>
                     <div class="card-name">Daiany</div>
                     <div class="card-role">Suporte Questor</div>
                     <div class="click-indicator">+</div>
                 </div>
 
-                <div class="card supervisor" onclick="openModal('beatriz')">
-                    <div class="card-title">SUPERVISORA</div>
+                <div class="card supervisor clickable" onclick="openModal('beatriz')">
+                    <div class="card-title">ANALISTA</div>
                     <div class="card-name">Beatriz</div>
                     <div class="card-role">DP Operacional</div>
                     <div class="click-indicator">+</div>
                 </div>
 
-                <div class="card supervisor" onclick="openModal('diego')">
-                    <div class="card-title">SUPERVISOR</div>
+                <div class="card supervisor clickable" onclick="openModal('diego')">
+                    <div class="card-title">ANALISTA</div>
                     <div class="card-name">Diego</div>
                     <div class="card-role">DP Operacional</div>
                     <div class="click-indicator">+</div>
                 </div>
 
-                <div class="card supervisor" onclick="openModal('aline')">
+                <div class="card supervisor clickable" onclick="openModal('aline')">
                     <div class="card-title">SUPERVISORA</div>
                     <div class="card-name">Aline</div>
                     <div class="card-role">DP Operacional</div>
                     <div class="click-indicator">+</div>
                 </div>
 
-                <div class="card supervisor" onclick="openModal('elisabete')">
+                <div class="card supervisor clickable" onclick="openModal('elisabete')">
                     <div class="card-title">SUPERVISORA</div>
                     <div class="card-name">Elisabete</div>
                     <div class="card-role">DP Operacional</div>
                     <div class="click-indicator">+</div>
                 </div>
 
-                <div class="card supervisor" onclick="openModal('rasec')">
+                <div class="card supervisor clickable" onclick="openModal('rasec')">
                     <div class="card-title">SUPERVISOR</div>
                     <div class="card-name">Rasec</div>
                     <div class="card-role">DP Operacional</div>
@@ -615,7 +738,7 @@
             <!-- Seções por Supervisor -->
             <div class="supervisor-sections">
 
-                <!-- Daiany - Suporte Questor (SEPARADO) -->
+                <!-- Daiany - Suporte Questor -->
                 <div class="supervisor-block">
                     <div class="supervisor-header">
                         <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
@@ -626,15 +749,12 @@
                     <div class="teams-container">
                         <div class="team-group">
                             <div class="team-members">
-                                <div class="member-card">
-                                    <div class="member-name">Daiany</div>
-                                    <div class="member-role">Suporte Questor</div>
-                                </div>
-                                <div class="member-card">
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Mayumi')">
                                     <div class="member-name">Mayumi</div>
-                                    <div class="member-role">Suporte Questor</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
                                 </div>
-                                <div class="member-card">
+                                <div class="member-card not-clickable">
                                     <div class="member-name">Estagiário</div>
                                     <div class="member-role">Contratar</div>
                                 </div>
@@ -655,18 +775,45 @@
                         <div class="team-group">
                             <div class="team-name">DP07 - CLÍNICAS</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Taise</div></div>
-                                <div class="member-card"><div class="member-name">Julia</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Taise')">
+                                    <div class="member-name">Taise</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Julia')">
+                                    <div class="member-name">Julia</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">DP014 - POSTOS</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Tainara</div><div class="member-role">AP</div></div>
-                                <div class="member-card"><div class="member-name">Julia</div><div class="member-role">AP</div></div>
-                                <div class="member-card"><div class="member-name">Amanda</div><div class="member-role">OLÁ & Demais</div></div>
-                                <div class="member-card"><div class="member-name">Gabriel</div><div class="member-role">OLÁ - Provável saída</div></div>
-                                <div class="member-card"><div class="member-name">Aninha</div><div class="member-role">Estagiária PDI</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Tainara')">
+                                    <div class="member-name">Tainara</div>
+                                    <div class="member-role">Analista - AP</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Julia')">
+                                    <div class="member-name">Julia</div>
+                                    <div class="member-role">Analista - AP</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Amanda')">
+                                    <div class="member-name">Amanda</div>
+                                    <div class="member-role">Analista - OLÁ & Demais</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Maria Simone')">
+                                    <div class="member-name">Maria Simone</div>
+                                    <div class="member-role">Assistente - OLÁ & Demais</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card not-clickable">
+                                    <div class="member-name">Aninha</div>
+                                    <div class="member-role">Estagiária PDI</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -684,25 +831,57 @@
                         <div class="team-group">
                             <div class="team-name">DP08 - DIVERSOS</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Milena</div></div>
-                                <div class="member-card"><div class="member-name">Rayssa</div></div>
-                                <div class="member-card"><div class="member-name">Camila</div><div class="member-role">Provável saída</div></div>
-                                <div class="member-card"><div class="member-name">Daiane</div></div>
-                                <div class="member-card"><div class="member-name">Amanda</div><div class="member-role">Provável saída</div></div>
-                                <div class="member-card"><div class="member-name">Assist</div><div class="member-role">Subst. Mayumi</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Milena')">
+                                    <div class="member-name">Milena</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Rayssa')">
+                                    <div class="member-name">Rayssa</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Camila')">
+                                    <div class="member-name">Camila</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Daiane')">
+                                    <div class="member-name">Daiane</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Vaga')">
+                                    <div class="member-name">Vaga</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Vaga')">
+                                    <div class="member-name">Vaga</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">DP17 - RESENDE</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Raiane</div></div>
-                                <div class="member-card"><div class="member-name">Assist</div><div class="member-role">Subst. Diego</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Raiane')">
+                                    <div class="member-name">Raiane</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Vaga')">
+                                    <div class="member-name">Vaga</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Aline - DP01 + Suporte Questor (SEPARADO) -->
+                <!-- Aline - DP01 + Suporte Questor -->
                 <div class="supervisor-block">
                     <div class="supervisor-header">
                         <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
@@ -714,16 +893,35 @@
                         <div class="team-group">
                             <div class="team-name">DP01 - INSIDE HS</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Tiago</div></div>
-                                <div class="member-card"><div class="member-name">Raquel</div><div class="member-role">Estagiária</div></div>
-                                <div class="member-card"><div class="member-name">Assist</div><div class="member-role">Subst. Angélica</div></div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Tiago')">
+                                    <div class="member-name">Tiago</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card not-clickable">
+                                    <div class="member-name">Raquel</div>
+                                    <div class="member-role">Estagiária</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Angélica Raposo')">
+                                    <div class="member-name">Angélica Raposo</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">SUPORTE QUESTOR</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Samira</div></div>
-                                <div class="member-card"><div class="member-name">Cintia</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Samira')">
+                                    <div class="member-name">Samira</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Vaga')">
+                                    <div class="member-name">Vaga</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -741,16 +939,36 @@
                         <div class="team-group">
                             <div class="team-name">DP04 - HOTÉIS & BARES</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Priscila Almeida</div></div>
-                                <div class="member-card"><div class="member-name">Estela</div></div>
-                                <div class="member-card"><div class="member-name">Isabela</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Priscila Almeida')">
+                                    <div class="member-name">Priscila Almeida</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Charlene')">
+                                    <div class="member-name">Charlene</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Isabela')">
+                                    <div class="member-name">Isabela</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">DP03 - MERCADO</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Marcella</div></div>
-                                <div class="member-card"><div class="member-name">Natalia</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Marcella')">
+                                    <div class="member-name">Marcella</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Natalia')">
+                                    <div class="member-name">Natalia</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -768,33 +986,105 @@
                         <div class="team-group">
                             <div class="team-name">DP06 - INSIDE POVÃO</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Daniel</div></div>
-                                <div class="member-card"><div class="member-name">Vanessa</div></div>
-                                <div class="member-card"><div class="member-name">Estagiário</div><div class="member-role">Contratar</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Daniel')">
+                                    <div class="member-name">Daniel</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Vanessa')">
+                                    <div class="member-name">Vanessa</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card not-clickable">
+                                    <div class="member-name">Estagiário</div>
+                                    <div class="member-role">Contratar</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">DP05 - DIVERSOS</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Joice Ambrosio</div></div>
-                                <div class="member-card"><div class="member-name">Walace</div></div>
-                                <div class="member-card"><div class="member-name">Leidiane</div><div class="member-role">Estagiária PDI</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Joice Ambrosio')">
+                                    <div class="member-name">Joice Ambrosio</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Walace')">
+                                    <div class="member-name">Walace</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card not-clickable">
+                                    <div class="member-name">Leidiane</div>
+                                    <div class="member-role">Estagiária PDI</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">DP02 - COMÉRCIO</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Joice Barcelos</div></div>
-                                <div class="member-card"><div class="member-name">Isabela</div></div>
-                                <div class="member-card"><div class="member-name">Angélica Raposo</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Joice Barcelos')">
+                                    <div class="member-name">Joice Barcelos</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Isabela')">
+                                    <div class="member-name">Isabela</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Cíntia')">
+                                    <div class="member-name">Cíntia</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                         <div class="team-group">
                             <div class="team-name">DP10 - DIVERSOS</div>
                             <div class="team-members">
-                                <div class="member-card"><div class="member-name">Nilmara</div></div>
-                                <div class="member-card"><div class="member-name">Maiara</div><div class="member-role">Provável saída</div></div>
-                                <div class="member-card"><div class="member-name">Hugo</div></div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Nilmara')">
+                                    <div class="member-name">Nilmara</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Vaga')">
+                                    <div class="member-name">Vaga</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('assistente', 'Hugo')">
+                                    <div class="member-name">Hugo</div>
+                                    <div class="member-role">Assistente</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suporte Questor -->
+                <div class="supervisor-block">
+                    <div class="supervisor-header">
+                        <div class="card" style="background: linear-gradient(145deg, #3d4a6e 0%, #323d5c 100%); border: 2px solid #9d8455;">
+                            <div class="card-title" style="color: #fff; text-shadow: 1px 1px 0px #9d8455;">EQUIPE QUESTOR</div>
+                            <div class="card-name">Suporte Questor</div>
+                        </div>
+                    </div>
+                    <div class="teams-container">
+                        <div class="team-group">
+                            <div class="team-members">
+                                <div class="member-card clickable" onclick="openModal('analista', 'Samira')">
+                                    <div class="member-name">Samira</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
+                                <div class="member-card clickable" onclick="openModal('analista', 'Vaga')">
+                                    <div class="member-name">Vaga</div>
+                                    <div class="member-role">Analista</div>
+                                    <div class="click-indicator">+</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -802,6 +1092,37 @@
 
             </div>
 
+        </div>
+
+        <!-- Seção de Estatísticas -->
+        <div class="stats-section">
+            <div class="stats-title">CONTADOR DE FUNÇÕES</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="count-analistas">0</div>
+                    <div class="stat-label">Analistas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="count-assistentes">0</div>
+                    <div class="stat-label">Assistentes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="count-estagiarios">0</div>
+                    <div class="stat-label">Estagiários</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="count-supervisores">0</div>
+                    <div class="stat-label">Supervisores</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="count-coordenadores">0</div>
+                    <div class="stat-label">Coordenadores</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="count-total">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -818,7 +1139,9 @@
     </div>
 
     <script>
+        // Base de dados de descrições
         const descriptions = {
+            // SUPERVISORES
             daiany: {
                 title: "SUPERVISORA DE SUPORTE",
                 name: "Daiany",
@@ -836,7 +1159,7 @@
                 ]
             },
             beatriz: {
-                title: "SUPERVISORA DE DP",
+                title: "ANALISTA / SUPERVISORA DE DP",
                 name: "Beatriz",
                 items: [
                     "Garantir a entrega de todas as rotinas inerentes ao DP",
@@ -847,7 +1170,7 @@
                 ]
             },
             diego: {
-                title: "SUPERVISOR DE DP",
+                title: "ANALISTA / SUPERVISOR DE DP",
                 name: "Diego",
                 items: [
                     "Garantir a entrega de todas as rotinas inerentes ao DP",
@@ -898,18 +1221,60 @@
                     "Gestão estratégica das equipes",
                     "Acompanhamento de resultados e indicadores",
                     "Integração entre as diferentes áreas de DP",
-                    "Desenvolvimento de lideranças"
+                    "Desenvolvimento de lideranças",
+                    "Visão estratégica e capacidade de planejamento",
+                    "Gestão de processos e pessoas"
+                ]
+            },
+            // FUNÇÕES GENÉRICAS
+            analista: {
+                title: "ANALISTA DE DP",
+                items: [
+                    "Administração de pessoal de clientes de média a alta complexidade",
+                    "Processamento de admissão, férias, demissão e geração de folha de pagamento",
+                    "Elaboração de relatórios e informações legais aos clientes",
+                    "Conhecimentos sólidos em eSocial e legislação trabalhista",
+                    "Cálculo intermediário a avançado de folha de pagamento e seus reflexos",
+                    "Conceito e aplicabilidade de jornada de trabalho e controles de ponto",
+                    "Conceito e aplicabilidade dos tipos de contratos e relações sindicais",
+                    "Conceito e aplicabilidade de admissão, férias, 13º salário, afastamentos temporários",
+                    "Conceito e aplicabilidade de rescisão contratual",
+                    "Sistemas: Questor Folha, NG, Tareffa, Trello, Questor ZEN, macro conferência de folha",
+                    "Excel intermediário a avançado",
+                    "Comunicação oral e escrita eficaz",
+                    "Planejamento e organização",
+                    "Facilidade de relações interpessoais e trabalho em equipe",
+                    "Tomada de decisão compartilhada",
+                    "Proatividade e liderança"
+                ]
+            },
+            assistente: {
+                title: "ASSISTENTE DE DP",
+                items: [
+                    "Administração de pessoal de clientes de menor complexidade",
+                    "Realização de atividades de admissão, férias, demissão sob orientação",
+                    "Geração de folha de pagamento",
+                    "Elaboração de relatórios e informações legais aos clientes",
+                    "Noções do eSocial e seus eventos",
+                    "Noções de jornada de trabalho e controles de ponto",
+                    "Noções de tipos de contratos e relações sindicais",
+                    "Noções de admissão, férias, 13º salário, afastamentos temporários",
+                    "Cálculo básico de folha de pagamento e seus reflexos",
+                    "Noções de rescisão contratual",
+                    "Sistemas: Questor Folha, NG, Tareffa, Trello, Questor ZEN",
+                    "Familiaridade com Excel e Office básico",
+                    "Facilidade de comunicação e trabalho em equipe"
                 ]
             }
         };
 
-        function openModal(person) {
+        function openModal(key, name = null) {
             const modal = document.getElementById('modal');
-            const data = descriptions[person];
+            const data = descriptions[key];
 
             if (data) {
                 document.getElementById('modal-title').textContent = data.title;
-                document.getElementById('modal-name').textContent = data.name;
+                document.getElementById('modal-name').textContent = name || data.name || '';
 
                 const list = document.getElementById('modal-list');
                 list.innerHTML = '';
@@ -948,6 +1313,72 @@
             }
             lastTouchEnd = now;
         }, false);
+
+        // Contador de funções
+        function countFunctions() {
+            let analistas = 0;
+            let assistentes = 0;
+            let estagiarios = 0;
+            let supervisores = 6; // Daiany, Beatriz, Diego, Aline, Elisabete, Rasec
+            let coordenadores = 1; // Edimar
+
+            // Contar da estrutura do HTML
+            const memberCards = document.querySelectorAll('.member-card');
+
+            memberCards.forEach(card => {
+                const role = card.querySelector('.member-role');
+                if (role) {
+                    const text = role.textContent.toLowerCase();
+                    if (text.includes('analista') && !text.includes('estagiária')) {
+                        analistas++;
+                    } else if (text.includes('assistente') && !text.includes('estagiária')) {
+                        assistentes++;
+                    } else if (text.includes('estagiária') || text.includes('estagiário')) {
+                        estagiarios++;
+                    }
+                }
+            });
+
+            // Adicionar supervisores e coordenador
+            analistas += supervisores + coordenadores;
+
+            const total = analistas + assistentes + estagiarios;
+
+            // Animar contadores
+            animateValue('count-analistas', 0, analistas, 1000);
+            animateValue('count-assistentes', 0, assistentes, 1000);
+            animateValue('count-estagiarios', 0, estagiarios, 1000);
+            animateValue('count-supervisores', 0, supervisores, 1000);
+            animateValue('count-coordenadores', 0, coordenadores, 1000);
+            animateValue('count-total', 0, total, 1000);
+        }
+
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            const range = end - start;
+            const minTimer = 50;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            stepTime = Math.max(stepTime, minTimer);
+            let startTime = new Date().getTime();
+            let endTime = startTime + duration;
+            let timer;
+
+            function run() {
+                let now = new Date().getTime();
+                let remaining = Math.max((endTime - now) / duration, 0);
+                let value = Math.round(end - (remaining * range));
+                obj.innerHTML = value;
+                if (value == end) {
+                    clearInterval(timer);
+                }
+            }
+
+            timer = setInterval(run, stepTime);
+            run();
+        }
+
+        // Iniciar contadores quando a página carregar
+        window.addEventListener('load', countFunctions);
     </script>
 </body>
 </html>
